@@ -375,6 +375,20 @@ new_local_repository(
 )
 
 new_local_repository(
+    name = "linux_opencv",
+    path = "/usr",
+    build_file_content = """
+cc_library(
+    name = "opencv",
+    srcs = glob(["lib/libopencv*.so"]),
+    hdrs = glob(["include/opencv4/opencv2/**/*.hpp"]),
+    includes = ["include/opencv4"],
+    visibility = ["//visibility:public"],
+)
+""",
+)
+
+new_local_repository(
     name = "linux_ffmpeg",
     build_file = "@//third_party:ffmpeg_linux.BUILD",
     path = "/usr"
@@ -400,6 +414,7 @@ new_local_repository(
     build_file = "@//third_party:opencv_windows.BUILD",
     path = "C:\\opencv\\build",
 )
+
 
 http_archive(
     name = "android_opencv",
